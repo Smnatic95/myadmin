@@ -43,7 +43,12 @@ export default {
 
 <style scoped>
 .sideBar {
-  width: 100%;
+  width: 200px;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  box-sizing: border-box;
 }
 </style>

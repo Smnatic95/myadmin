@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
     .gHeader{
-        width:100%;
+        width: 100%;
         display: flex;
         justify-content: space-between;
     }
