@@ -1,27 +1,57 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: to => {
+      console.log(to);
+      return '/Home';
+    }
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+  {
+    path: '/Login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "Login" */ '../pages/Login')
+  },
+  {
+    path: '/Home',
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "Home" */ '../pages/Home'),
+    children:[
+      {
+        path: '/',
+        name: 'Index',
+        component: () => import(/* webpackChunkName: "Home" */ '../pages/Index')
+      },
+      {
+        path: '/lineList',
+        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/list') 
+      },
+      {
+        path: '/addLine',
+        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/add') 
+      },
+      {
+        path: '/signUpList',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/list') 
+      },
+      {
+        path: '/signUpSettings',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/settings') 
+      },
+      {
+        path: '/signUpStatistics',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/statistics') 
+      },
+    ]
+  }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
