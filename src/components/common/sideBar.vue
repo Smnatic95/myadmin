@@ -1,14 +1,14 @@
 <template>
   <el-menu
     class="sideBar"
-    default-active="/Home"
+    :default-active="DFAcive"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
-    :unique-opened= true
-    :router=true
+    :unique-opened="true"
+    :router="true"
   >
-    <el-menu-item index="/Home" >
+    <el-menu-item index="/Home">
       <i class="el-icon-menu"></i>
       <span slot="title">首页</span>
     </el-menu-item>
@@ -35,9 +35,15 @@
 <script>
 export default {
   name: "sideBar",
-  props: {
-
-  }
+  data() {
+    return {
+      DFAcive: null,
+    };
+  },
+  props: {},
+  created() {
+    this.DFAcive = this.$route.path;
+  },
 };
 </script>
 
@@ -49,6 +55,6 @@ export default {
   top: 0;
   left: 0;
   overflow: auto;
-  box-sizing: border-box;
+  border: none;
 }
 </style>

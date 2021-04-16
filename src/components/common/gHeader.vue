@@ -1,18 +1,26 @@
 <template>
   <div class="gHeader">
-
-      <el-menu class="member" mode="horizontal" menu-trigger="click">
-        <el-menu-item>微信公众号</el-menu-item>
-        <el-menu-item>微信小程序</el-menu-item>
+    <div class="pull_left">
+      <el-menu mode="horizontal" default-active="m1" menu-trigger="click">
+        <el-menu-item index="m1">微信小程序</el-menu-item>
+        <!-- <el-menu-item index="2">微信公众号</el-menu-item> -->
       </el-menu>
+    </div>
 
-      <el-menu class="login_info" mode="horizontal"  menu-trigger="click">
-        <el-submenu index="2">
-          <template slot="title">管理员</template>
-          <el-menu-item index="2-1">退出登录</el-menu-item>
-        </el-submenu>
-      </el-menu>
-   
+    <div class="pull_right">
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          管理员<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item>狮子头</el-dropdown-item>
+          <el-dropdown-item>螺蛳粉</el-dropdown-item>
+          <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -35,15 +43,23 @@ export default {
 </script>
 
 <style scoped>
-    .gHeader{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-    .member{
-        width: calc(100% - 100px);
-    }
-    .login_info.el-menu {
-        width: 100px;
-    }
+.gHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.el-menu {
+  border: none;
+}
+
+.gHeader,
+.el-menu-item {
+  color: #000;
+}
+.el-dropdown-link {
+  cursor: pointer;
+}
 </style>

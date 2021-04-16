@@ -7,7 +7,6 @@ const routes = [
   {
     path: '/',
     redirect: to => {
-      console.log(to);
       return '/Home';
     }
   },
@@ -18,13 +17,11 @@ const routes = [
   },
   {
     path: '/Home',
-    name: 'Home',
     component: () => import(/* webpackChunkName: "Home" */ '../pages/Home'),
     children:[
       {
         path: '/',
-        name: 'Index',
-        component: () => import(/* webpackChunkName: "Home" */ '../pages/Index')
+        component: () => import(/* webpackChunkName: "Home" */ '../pages/Index/Index')
       },
       {
         path: '/lineList',
