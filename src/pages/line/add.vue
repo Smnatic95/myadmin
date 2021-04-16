@@ -14,7 +14,9 @@
           :draggable="true"
         ></el-amap-marker>
 
-        <el-amap-polyline :path="polyline.path"></el-amap-polyline>
+        <el-amap-polyline
+          :path="polyline.path"
+        ></el-amap-polyline>
       </el-amap>
     </div>
   </div>
@@ -23,26 +25,35 @@
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
 let amapManager = new AMapManager(); //获取高德原生 AMap.Map
+
 export default {
   name: "addLine",
   components: {},
   data() {
     return {
       map: null,
+      mouseTool: null,
       amapManager,
       mapEvents: {
         init: (o) => {
           this.map = o;
         },
+        complete: (e) => {
+          this.mouseTool = new AMap.MouseTool(this.map);
+          this.drawPolyline();
+        },
         click: (e) => {
-          console.log(this, e.lnglat.lng, e.lnglat.lat);
-          this.markers.push({
-            position: [e.lnglat.lng, e.lnglat.lat],
-          });
+         
+          // this.markers.push({
+          //   position: [e.lnglat.lng, e.lnglat.lat],
+          // });
 
-          this.polyline.path.push(
-           [e.lnglat.lng, e.lnglat.lat]
-          );
+          // this.polyline.path.push([e.lnglat.lng, e.lnglat.lat]);
+          //  if (this.mouseTool.polyline) {
+          //   console.log(this.mouseTool.polyline().getPath());
+          // }
+
+          console.log(this.mouseTool)
 
         },
       },
@@ -50,10 +61,21 @@ export default {
       polyline: {
         path: [],
       },
+      curpolyline: null,
     };
   },
   mounted() {},
-  methods: {},
+  methods: {
+    drawPolyline() {
+     this.mouseTool.polyline({
+        strokeColor: "#3366FF",
+        strokeOpacity: 1,
+        strokeWeight: 6,
+        // 线样式还支持 'dashed'
+        strokeStyle: "solid"
+      })
+    },
+  },
 };
 </script>
 
