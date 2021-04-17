@@ -3,13 +3,13 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueAMap from 'vue-amap';
-
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
 Vue.use(ElementUI);
 Vue.use(VueAMap);
+import axios from '@/providers/request.js';
+Vue.prototype.$axios = axios;
 VueAMap.initAMapApiLoader({
   key: '14ddb9a3b43d3d43752f8d34b30c3a92',
   plugin: ['AMap.Autocomplete', 'AMap.MouseTool','AMap.polyline','AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
