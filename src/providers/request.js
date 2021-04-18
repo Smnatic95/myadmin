@@ -1,12 +1,44 @@
 import axios from 'axios';
+import { Loading, Message } from 'element-ui'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://a.2021.com/index.php'; //填写域名
+axios.defaults.baseURL = 'http://a.2021.com:6060/index.php'; //填写域名
+
+const myWrongToa = (msg) => {
+  Message({
+    message: msg,
+    type: 'error',
+    duration: 5000
+  })
+}
+
+const loading = { //loading加载对象
+  loadingInstance: null,
+  //打开加载
+  open() {
+    if (this.loadingInstance === null) { // 如果实例 为空，则创建
+      this.loadingInstance = Loading.service({
+        text: '加载中...', //加载图标下的文字
+        spinner: 'el-icon-loading', //加载图标
+        background: 'rgba(0, 0, 0, 0.8)', //背景色
+        customClass: 'loading' //自定义样式的类名
+      })
+    }
+  },
+  //关闭加载
+  close() {
+    // 不为空时, 则关闭加载窗口
+    if (this.loadingInstance !== null) {
+      this.loadingInstance.close()
+    }
+    this.loadingInstance = null
+  }
+}
 
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    console.log(config);
+    loading.open();
     config.data.token = '111111';
     return config;
   },
@@ -17,51 +49,57 @@ axios.interceptors.request.use(
 
 //响应拦截器即异常处理
 axios.interceptors.response.use(response => {
-  return response
+  loading.close();
+  let resdata = response.data;
+  if (resdata.code === 0) {
+    myWrongToa(resdata.data);
+  }
+  return resdata;
 }, err => {
+  loading.close();
   if (err && err.response) {
     switch (err.response.status) {
       case 400:
-        console.log('错误请求')
+        myWrongToa('错误请求')
         break;
       case 401:
-        console.log('未授权，请重新登录')
+        myWrongToa('未授权，请重新登录')
         break;
       case 403:
-        console.log('拒绝访问')
+        myWrongToa('拒绝访问')
         break;
       case 404:
-        console.log('请求错误,未找到该资源')
+        myWrongToa('请求错误,未找到该资源')
         break;
       case 405:
-        console.log('请求方法未允许')
+        myWrongToa('请求方法未允许')
         break;
       case 408:
-        console.log('请求超时')
+        myWrongToa('请求超时')
         break;
       case 500:
-        console.log('服务器端出错')
+        myWrongToa('服务器端出错')
         break;
       case 501:
-        console.log('网络未实现')
+        myWrongToa('网络未实现')
         break;
       case 502:
-        console.log('网络错误')
+        myWrongToa('网络错误')
         break;
       case 503:
-        console.log('服务不可用')
+        myWrongToa('服务不可用')
         break;
       case 504:
-        console.log('网络超时')
+        myWrongToa('网络超时')
         break;
       case 505:
-        console.log('http版本不支持该请求')
+        myWrongToa('http版本不支持该请求')
         break;
       default:
-        console.log(`连接错误${err.response.status}`)
+        myWrongToa(`连接错误${err.response.status}`)
     }
   } else {
-    console.log('连接到服务器失败')
+    myWrongToa('连接到服务器失败')
   }
   return Promise.resolve(err.response)
 })

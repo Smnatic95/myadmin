@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     redirect: to => {
-      return '/Home';
+
     }
   },
   {
@@ -18,30 +18,36 @@ const routes = [
   {
     path: '/Home',
     component: () => import(/* webpackChunkName: "Home" */ '../pages/Home'),
-    children:[
+    children: [
       {
         path: '/',
+        name: 'Index',
         component: () => import(/* webpackChunkName: "Home" */ '../pages/Index/Index')
       },
       {
         path: '/lineList',
-        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/list') 
+        name: 'lineList',
+        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/list')
       },
       {
         path: '/addLine',
-        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/add') 
+        name: 'addLine',
+        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/add')
       },
       {
         path: '/signUpList',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/list') 
+        name: 'signUpList',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/list')
       },
       {
         path: '/signUpSettings',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/settings') 
+        name: 'signUpSettings',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/settings')
       },
       {
         path: '/signUpStatistics',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/statistics') 
+        name: 'signUpStatistics',
+        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/statistics')
       },
     ]
   }
@@ -51,6 +57,13 @@ const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name != 'Login') {
+    if (!window.localStorage.getItem('token')) next({ name: 'Login' });
+  }
+  next();
 })
 
 export default router

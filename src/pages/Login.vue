@@ -55,13 +55,17 @@ export default {
       }
       let params = {
         name: userName,
-        password:password,
+        password: password,
       };
-      console.log(params);
       this.$axios
-        .post("http://a.2021.com/index.php/admin/user/login",params)
+        .post("/admin/user/login", params)
         .then((result) => {
-          console.log(result.data);
+          if (result.code) {
+            window.localStorage.setItem("token", result.data);
+            this.$router.replace({
+              name: "Index"
+            });
+          }
         })
         .catch((err) => {});
     },

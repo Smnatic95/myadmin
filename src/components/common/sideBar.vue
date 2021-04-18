@@ -25,9 +25,9 @@
         <i class="el-icon-location"></i>
         <span>报名管理</span>
       </template>
-      <el-menu-item index="signUpList">报名列表</el-menu-item>
-      <el-menu-item index="signUpSettings">报名设置</el-menu-item>
-      <el-menu-item index="signUpStatistics">报名统计</el-menu-item>
+      <el-menu-item index="/signUpList">报名列表</el-menu-item>
+      <el-menu-item index="/signUpSettings">报名设置</el-menu-item>
+      <el-menu-item index="/signUpStatistics">报名统计</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -42,6 +42,7 @@ export default {
   },
   props: {},
   created() {
+    console.log(this.$route.path);
     this.DFAcive = this.$route.path;
   },
 };
