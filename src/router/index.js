@@ -3,51 +3,54 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     redirect: to => {
+      if (!window.localStorage.getItem('token')) {
+        return '/Login'
+      } else {
+        return '/Home'
+      }
 
     }
   },
   {
     path: '/Login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "Login" */ '../pages/Login')
+    component: () => import( /* webpackChunkName: "Login" */ '../pages/Login')
   },
   {
     path: '/Home',
-    component: () => import(/* webpackChunkName: "Home" */ '../pages/Home'),
-    children: [
-      {
+    component: () => import( /* webpackChunkName: "Home" */ '../pages/Home'),
+    children: [{
         path: '/',
         name: 'Index',
-        component: () => import(/* webpackChunkName: "Home" */ '../pages/Index/Index')
+        component: () => import( /* webpackChunkName: "Home" */ '../pages/Index/Index')
       },
       {
         path: '/lineList',
         name: 'lineList',
-        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/list')
+        component: () => import( /* webpackChunkName: "Line" */ '../pages/line/list')
       },
       {
         path: '/addLine',
         name: 'addLine',
-        component: () => import(/* webpackChunkName: "Line" */ '../pages/line/add')
+        component: () => import( /* webpackChunkName: "Line" */ '../pages/line/add')
       },
       {
         path: '/signUpList',
         name: 'signUpList',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/list')
+        component: () => import( /* webpackChunkName: "signUp" */ '../pages/signUp/list')
       },
       {
         path: '/signUpSettings',
         name: 'signUpSettings',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/settings')
+        component: () => import( /* webpackChunkName: "signUp" */ '../pages/signUp/settings')
       },
       {
         path: '/signUpStatistics',
         name: 'signUpStatistics',
-        component: () => import(/* webpackChunkName: "signUp" */ '../pages/signUp/statistics')
+        component: () => import( /* webpackChunkName: "signUp" */ '../pages/signUp/statistics')
       },
     ]
   }
@@ -61,7 +64,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name != 'Login') {
-    if (!window.localStorage.getItem('token')) next({ name: 'Login' });
+    if (!window.localStorage.getItem('token')) next({
+      name: 'Login'
+    });
   }
   next();
 })

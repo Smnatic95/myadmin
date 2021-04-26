@@ -2,13 +2,14 @@ import axios from 'axios';
 import { Loading, Message } from 'element-ui'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://a.2021.com:6060/index.php'; //填写域名
+axios.defaults.baseURL = 'http://a.2021.com/index.php'; //填写域名
 
 const myWrongToa = (msg) => {
   Message({
     message: msg,
     type: 'error',
-    duration: 5000
+    duration: 3000,
+    offset:100
   })
 }
 

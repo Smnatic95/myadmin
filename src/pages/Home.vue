@@ -20,7 +20,8 @@ export default {
     sideBar,
     gHeader,
   },
-  methods: {}
+  created() {},
+  methods: {},
 };
 </script>
 
@@ -30,14 +31,13 @@ export default {
 }
 .main_right {
   width: calc(100vw - 200px);
- 
 }
-.mainCnt{
+.mainCnt {
   background-color: #eee;
   width: 100%;
   overflow: auto;
   box-sizing: border-box;
-  padding:20px;
-  min-height: calc(100vh - 60px);
+  padding: 20px;
+  height: calc(100vh - 60px);
 }
 </style>
