@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Loading, Message } from 'element-ui'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://a.2021.com/index.php'; //填写域名
+axios.defaults.baseURL = 'http://ufile.vip/api/public/index.php'; //填写域名
 
 const myWrongToa = (msg) => {
   Message({
