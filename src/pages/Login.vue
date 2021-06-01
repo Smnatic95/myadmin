@@ -122,11 +122,11 @@ export default {
               duration: 500,
             });
             setTimeout(() => {
-              this.$router.replace({
-                name: "Index",
+              this.$router.push({
+                path: "/"
               });
             }, 500);
-          }else{
+          } else {
             this.yzmStatus = 0;
           }
         })
